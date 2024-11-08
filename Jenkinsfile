@@ -5,7 +5,7 @@ pipeline {
         stage('Hello') {
             steps {
                 sh '''
-                echo "Testowy komunikat! $JOB_NAME"'
+                echo "Testowy komunikat! $JOB_NAME"
                 '''
             }
         }
