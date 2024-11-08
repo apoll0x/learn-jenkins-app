@@ -30,23 +30,38 @@ pipeline {
             }
         }
 
-    stage('Test') {
-        agent {
-            docker {
-                image 'node:18-alpine'
-                reuseNode true
+        stage('Test') {
+                agent {
+                    docker {
+                        image 'node:18-alpine'
+                        reuseNode true
+                    }
+                }
+                
+                steps {
+                    sh '''
+                        echo "Pora na testowanie.."
+                        test -f build/index.html
+                        npm test
+                    '''
+                }
             }
         }
-        
-        steps {
-            sh '''
-                echo "Pora na testowanie.."
-                test -f build/index.html
-                npm test
-            '''
+
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli -g
+                    netlify --version
+                '''
+            }
         }
-    }
-    }
 
     post {
         always {
