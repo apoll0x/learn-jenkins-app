@@ -7,6 +7,7 @@ pipeline {
                 sh '''
                 echo "Testowy komunikat! $JOB_NAME"
                 echo "Witaj, użytkowniku!"
+                echo "Test!"
                 '''
             }
         }
